@@ -18,8 +18,6 @@ let flattenIntervals2 = (a, b) => {
       Math.min(...[first, second].map(startOf)),
       Math.max(...[first, second].map(endOf))]]
     : [first, second]
-
-  return [first, second]
 }
 
 /* */
