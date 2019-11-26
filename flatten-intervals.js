@@ -11,8 +11,13 @@ let startOf = ([x, _]) => x
 let endOf = ([_, x]) => x
 
 let flattenIntervals2 = (a, b) => {
-  debugger
   let [first, second] = sorted2(a, b)
+
+  return (startOf(second) <= endOf(first))
+    ? [[
+      Math.min(...[first, second].map(startOf)),
+      Math.max(...[first, second].map(endOf))]]
+    : [first, second]
 
   return [first, second]
 }

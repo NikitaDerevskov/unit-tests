@@ -38,7 +38,13 @@ for (let [input, expected] of [
 
 for (let [input, expected] of [
   /* When no intersection, then do nothing. */
-  [[[1, 2], [3, 4]], [[1, 2], [3, 4]]]
+  [[[1, 2], [3, 4]], [[1, 2], [3, 4]]],
+  /* When second is included to the first. */
+  [[[1, 4], [2, 3]], [[1, 4]]],
+  /* When they are slightly intersected. */
+  [[[1, 3], [2, 5]], [[1, 5]]],
+  /* They are adjacent. */
+  [[[1, 3], [3, 7]], [[1, 7]]],
 ]) {
   test('flattenIntervals2', testf(m.flattenIntervals2), input, expected)
 }
