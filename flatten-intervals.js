@@ -27,7 +27,6 @@ let checkZ = (res, last) => {
 }
 
 let flattenIntervals = x => {
-  console.log(x)
   let sorted = x.sort((a, b) => startOf(a) - startOf(b))
   return sorted.reduce((acc, y, i) => {
     if (i == 0) {

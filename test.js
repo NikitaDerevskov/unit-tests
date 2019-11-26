@@ -53,7 +53,9 @@ for (let [input, expected] of [
 
 for (let [input, expected] of [
   /*  */
-  [[[[2, 5], [3, 10]]], [[2, 10]]]
+  [[[[2, 5], [3, 10]]], [[2, 10]]],
+  [[[[4, 6], [1, 3], [15, 25]]], [[1, 3], [4, 6], [15, 25]]],
+  [[[[2, 4], [1, 12], [15, 25]]], [[1, 12], [15, 25]]],
 ]) {
   test('flattenIntervals2', testf(m.flattenIntervals), input, expected)
 }
