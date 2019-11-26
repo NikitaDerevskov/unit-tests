@@ -48,3 +48,12 @@ for (let [input, expected] of [
 ]) {
   test('flattenIntervals2', testf(m.flattenIntervals2), input, expected)
 }
+
+/* flattenIntervals */
+
+for (let [input, expected] of [
+  /*  */
+  [[[[2, 5], [3, 10]]], [[2, 10]]]
+]) {
+  test('flattenIntervals2', testf(m.flattenIntervals), input, expected)
+}

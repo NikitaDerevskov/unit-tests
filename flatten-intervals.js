@@ -27,6 +27,7 @@ let checkZ = (res, last) => {
 }
 
 let flattenIntervals = x => {
+  console.log(x)
   let sorted = x.sort((a, b) => startOf(a) - startOf(b))
   return sorted.reduce((acc, y, i) => {
     if (i == 0) {
@@ -47,11 +48,6 @@ let flattenIntervals = x => {
 }
 
 /* */
-
-let a = [[15, 100], [2, 5], [3, 10]]
-
-console.log('flattenIntervals', flattenIntervals(a))
-
 
 module.exports = {
   _sorted2: sorted2,
