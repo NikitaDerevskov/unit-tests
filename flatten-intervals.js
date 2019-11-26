@@ -20,6 +20,12 @@ let flattenIntervals2 = (a, b) => {
     : [first, second]
 }
 
+let checkZ = (res, last) => {
+  return res[1] <= last[1]
+  ? []
+  : res
+}
+
 let flattenIntervals = x => {
   let sorted = x.sort((a, b) => startOf(a) - startOf(b))
   return sorted.reduce((acc, y, i) => {
@@ -27,12 +33,15 @@ let flattenIntervals = x => {
       let res = flattenIntervals2(y, sorted[i+1])
       return res.length === 1
       ? acc.concat(res)
-      : acc.concat(y)
+      : acc.concat([y])
     } else if (i > 0) {
       let res = flattenIntervals2(y, sorted[i-1])
-      console.log('YYYY', y)
-      console.log('RESS', res[0])
-      return acc
+      if (res.length === 1) {
+        let check = checkZ(y, acc[acc.length -1])
+        return acc.concat(check)
+      } else {
+        return acc.concat([y])
+      }
     }
   },[])
 }
@@ -41,7 +50,6 @@ let flattenIntervals = x => {
 
 let a = [[15, 100], [2, 5], [3, 10]]
 
-// console.log(flattenIntervals2([2, 5], [3,10]))
 console.log('flattenIntervals', flattenIntervals(a))
 
 
