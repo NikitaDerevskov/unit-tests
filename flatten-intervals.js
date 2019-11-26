@@ -20,30 +20,27 @@ let flattenIntervals2 = (a, b) => {
     : [first, second]
 }
 
-let checkZ = (res, last) => {
-  return res[1] <= last[1]
-  ? []
-  : res
-}
 
 let flattenIntervals = x => {
   let sorted = x.sort((a, b) => startOf(a) - startOf(b))
   return sorted.reduce((acc, y, i) => {
-    if (i == 0) {
-      let res = flattenIntervals2(y, sorted[i+1])
-      return res.length === 1
-      ? acc.concat(res)
-      : acc.concat([y])
-    } else if (i > 0) {
-      let res = flattenIntervals2(y, sorted[i-1])
-      if (res.length === 1) {
-        let check = checkZ(y, acc[acc.length -1])
-        return acc.concat(check)
-      } else {
-        return acc.concat([y])
+    let res = flattenIntervals2(y , acc[acc.length - 1] || y)
+    let result = endOf(res) != undefined ? res[1] : res[0]
+
+    if (i != 0 ) {
+      let fn = () => {
+        acc[acc.length - 1] = result
+        return acc
       }
+
+    return endOf(result) !=- endOf(acc[acc.length - 1])
+    && startOf(acc[acc.length - 1]) + endOf(acc[acc.length - 1]) > startOf(result)
+    ? fn()
+    : acc.concat([y])
+    } else {
+      return acc.concat([res[0]])
     }
-  },[])
+  }, [])
 }
 
 /* */
