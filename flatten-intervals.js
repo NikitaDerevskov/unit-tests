@@ -2,44 +2,29 @@
  *
  */
 
+let startOf = ([x, _]) => x
+let endOf = ([_, x]) => x
+
 let sorted2 = (a, b) =>
   startOf(a) > startOf(b)
     ? [b, a]
     : [a, b]
 
-let startOf = ([x, _]) => x
-let endOf = ([_, x]) => x
-
-let flattenIntervals2 = (a, b) => {
-  let [first, second] = sorted2(a, b)
-
-  return (startOf(second) <= endOf(first))
-    ? [[
-      Math.min(...[first, second].map(startOf)),
-      Math.max(...[first, second].map(endOf))]]
-    : [first, second]
-}
-
+let merge = (a, b) => [
+      Math.min(...[a, b].map(startOf)),
+      Math.max(...[a, b].map(endOf))]
 
 let flattenIntervals = x => {
   let sorted = x.sort((a, b) => startOf(a) - startOf(b))
-  return sorted.reduce((acc, y, i) => {
-    let res = flattenIntervals2(y , acc[acc.length - 1] || y)
-    let result = endOf(res) != undefined ? res[1] : res[0]
 
-    if (i != 0 ) {
-      let fn = () => {
-        acc[acc.length - 1] = result
-        return acc
-      }
+  let step = (res, [f, s, ...rest]) => {
+    if (!s) return [...res, f]
+    return endOf(f) >= startOf(s)
+    ? step(res, [merge(f, s), ...rest])
+    : step([...res, f], [s,...rest])
+  }
 
-    return endOf(acc[acc.length - 1]) > startOf(result)
-    ? fn()
-    : acc.concat([y])
-    } else {
-      return acc.concat([res[0]])
-    }
-  }, [])
+  return step([], sorted)
 }
 
 /* */
@@ -48,5 +33,5 @@ module.exports = {
   _sorted2: sorted2,
   _startOf: startOf,
   _endOf: endOf,
-  flattenIntervals,
-  flattenIntervals2}
+  _merge: merge,
+  flattenIntervals}
