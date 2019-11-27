@@ -33,8 +33,7 @@ let flattenIntervals = x => {
         return acc
       }
 
-    return endOf(result) !=- endOf(acc[acc.length - 1])
-    && startOf(acc[acc.length - 1]) + endOf(acc[acc.length - 1]) > startOf(result)
+    return endOf(acc[acc.length - 1]) > startOf(result)
     ? fn()
     : acc.concat([y])
     } else {
