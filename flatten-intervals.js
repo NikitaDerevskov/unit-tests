@@ -2,6 +2,8 @@
  *
  */
 
+let empty = xs => xs.length === 0
+
 let startOf = ([x, _]) => x
 let endOf = ([_, x]) => x
 
@@ -20,7 +22,9 @@ let flattenIntervals = x => {
       : step([...acc, f], [s,...rest])
   }
 
-  return step([], sorted)
+  return empty(sorted)
+    ? []
+    : step([], sorted)
 }
 
 /* */
